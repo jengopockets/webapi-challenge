@@ -3,8 +3,6 @@ require("dotenv").config();
 const express = require("express");
 const helmet = require("helmet");
 
-const choresRouter = require('./chores/chore-route');
-
 const server = express();
 
 let users = [
@@ -21,27 +19,26 @@ let users = [
         name:'Calvin',
     },
 ];
+
+let chores = []
 server.use(helmet());
 
 server.get("/", (req, res) => {
   res.status(200).json(users)
 });
 
-function validateUserId(req, res, next) {
-    const id = req.params.id;
-    db.getById(id)
-        .then(user => {
-            if (user) {
-                req.user = user;
-                next();
-            }
-            else {
-                res.status(400).json({message: 'invalid user id'});
-            }
-        })
-        .catch (err => {
-            res.status(500).json({error: 'There was an error accessing that user from the database.'})
-        })
-}
+server.get('/chores', (req,res) => {
+    res.status(200).json(chores)
+})
+server.post('/:id/chores', (req,res) => {
+
+})
+server.put('/:id/chores/:id', (req,res) => {
+
+})
+server.delete('/:id/chores/:id', (req,res) =>{
+
+})
+
 
 module.exports = server;
